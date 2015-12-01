@@ -9,6 +9,22 @@ body {
   padding: 0;
 }
 
+.white-button {
+  color: #000;
+  text-decoration: none;
+}
+
+.note-attr-selected {
+  background-color: #efefef;
+}
+
+.note {
+  min-height: 200px;
+  padding: 5px;
+  border: 1px solid #fff;
+  word-wrap: break-word;
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
@@ -19,7 +35,6 @@ body {
 
 /* Custom page header */
 .header {
-  border-bottom: 1px solid #e5e5e5;
   margin-bottom: 10px;
 }
 /* Make the masthead heading the same height as the navigation */

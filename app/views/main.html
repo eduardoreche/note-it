@@ -1,23 +1,63 @@
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
+<form>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea class="form-control" id="description" ng-model="note.description" rows="6"></textarea>
+  </div>
 
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
+  <div class="row">
+    <div class="col-sm-12">
+      <label>Color</label>
+    </div>
 
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
+    <div class="col-sm-12">
 
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
+      <div class="col-sm-1" ng-repeat="color in colors" ng-class="note.color == color ? 'note-attr-selected' : ''">
+        <a href="" ng-click="addColor(color)" class="white-button" ng-show="color == '#ffffff'">
+          <i class="fa fa-square-o fa-2" style="font-size: 33px; color: #000"></i>
+        </a>
+        <a href="" ng-click="addColor(color)" ng-hide="color == '#ffffff'">
+          <i class="fa fa-square fa-2" style="font-size: 33px; color: {{color}}"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <label>Size</label>
+    </div>
+    <div class="col-sm-12">
+      <div class="col-sm-3" ng-class="note.size == 1 ? 'note-attr-selected' : ''">
+        <a href="" class="white-button" ng-click="addSize(1)">
+          <i class="fa fa-th" style="font-size: 30px"></i>
+          <span style="vertical-align: super">Small</span>
+        </a>
+      </div>
+      <div class="col-sm-3" ng-class="note.size == 2 ? 'note-attr-selected' : ''">
+        <a href="" class="white-button" ng-click="addSize(2)">
+          <i class="fa fa-th-large" style="font-size: 30px"></i>
+          <span style="vertical-align: super">Medium</span>
+        </a>
+      </div>
+      <div class="col-sm-3" ng-class="note.size == 3 ? 'note-attr-selected' : ''">
+        <a href="" class="white-button" ng-click="addSize(3)">
+          <i class="fa fa-square" style="font-size: 30px"></i>
+          <span style="vertical-align: super">Large</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-offset-11">
+      <button class="btn btn-primary" ng-click="save()">Save</button>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <div class="note" ng-class="'col-md-'+ (note.size*4)" ng-repeat="note in notes" style="background-color: {{note.color}}">
+    {{note.description}}
+  </div>
 </div>
