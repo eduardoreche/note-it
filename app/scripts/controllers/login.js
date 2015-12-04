@@ -15,9 +15,10 @@ angular.module('noteItApp')
     };
 
     $scope.error = '';
+    $scope.success = '';
 
     $scope.login = function() {
-      $scope.error = {};
+      $scope.error = '';
 
       Auth.auth.$authWithPassword($scope.user).then(
         function(auth) {
@@ -27,6 +28,20 @@ angular.module('noteItApp')
           $scope.user.password = '';
         }
       )
+    }
+
+    $scope.resetPassword = function() {
+      Auth.userRef.resetPassword({
+        email : $scope.user.email
+      }, function(error) {
+        if (error === null) {
+          $scope.success = '';
+          $scope.error = 'User not found.'
+        } else {
+          $scope.error = '';
+          $scope.success = 'Password reset instructions sent to your email'
+        }
+      });
     }
 
     $scope.signup = function() {

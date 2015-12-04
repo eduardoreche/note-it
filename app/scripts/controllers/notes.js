@@ -78,11 +78,6 @@ angular.module('noteItApp')
       return marked(text);
     }
 
-    $scope.logout = function() {
-      Auth.userRef.unauth();
-      $state.go('login');
-    }
-
   }]);
 
   marked.setOptions({

@@ -2,5 +2,7 @@
   <a href="" ng-click="logout()">Logout</a>
 <li>
 <li>
-  <img ng-src="{{user.profileImageURL}}" class="profile"></img>
+  <a ui-sref="profile">
+    <img ng-src="{{user[user.provider].profileImageURL}}" class="profile"></img>
+  </a>
 </li>
