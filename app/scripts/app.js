@@ -27,8 +27,16 @@ angular
     $stateProvider
       .state('home', {
         url: "/home",
-        templateUrl: "views/main.html",
-        controller: 'NotesCtrl',
+        views: {
+          "@": {
+            templateUrl: "views/main.html",
+            controller: 'NotesCtrl'
+          },
+          "userOptions": {
+            templateUrl: 'views/userOptions.html',
+            controller: 'NotesCtrl'
+          }
+        },
         resolve: {
           "user": ['$state', 'Auth', function($state, Auth){
             return Auth.auth.$requireAuth()

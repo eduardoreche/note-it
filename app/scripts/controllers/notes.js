@@ -8,7 +8,7 @@
  * Controller of the noteItApp
  */
 angular.module('noteItApp')
-  .controller('NotesCtrl', ['$scope', 'Note', 'user', function ($scope, Note, user){
+  .controller('NotesCtrl', ['$scope', 'Note', 'Auth', 'user', function ($scope, Note, Auth, user){
     $scope.notes = Note.all(user.uid);
     $scope.note = {
       color: '#ffffff',
@@ -17,7 +17,8 @@ angular.module('noteItApp')
     $scope.colors = ['#ffffff', '#f44336', '#2196f3', '#4caf50', '#ffeb3b',
                      '#795548', '#9e9e9e', '#e91e63', '#ff9800', '#cddc39',
                      '#00bcd4', '#9c27b0'];
-    $scope.user = user;
+    $scope.user = user.password;
+    $scope.search = '';
 
 
     $scope.save = function() {
@@ -75,6 +76,11 @@ angular.module('noteItApp')
 
     $scope.markdown = function(text) {
       return marked(text);
+    }
+
+    $scope.logout = function() {
+      Auth.userRef.unauth();
+      $state.go('login');
     }
 
   }]);

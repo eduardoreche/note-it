@@ -1,5 +1,11 @@
 <div class="row">
-  <div class="note" ng-class="'col-md-'+ (note.size*4)" ng-repeat="note in notes" style="background-color: {{note.color}}">
+  <div class="col-md-12 search-header">
+    <input type="search" class="form-control col-md-12" ng-model="search" placeholder="Search"></input>
+  </div>
+</div>
+
+<div class="row">
+  <div class="note" ng-class="'col-md-'+ (note.size*4)" ng-repeat="note in notes | filter:search" style="background-color: {{note.color}}">
     <div ng-bind-html="markdown(note.description)" class="note-content"></div>
     <div class="note-footer col-sm-12">
       <a href="" ng-click="edit(note)" data-toggle="modal" data-target="#note-form"><i class="fa fa-pencil"></i></a>
