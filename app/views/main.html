@@ -1,63 +1,85 @@
-<form>
-  <div class="form-group">
-    <label for="description">Description</label>
-    <textarea class="form-control" id="description" ng-model="note.description" rows="6"></textarea>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-12">
-      <label>Color</label>
-    </div>
-
-    <div class="col-sm-12">
-
-      <div class="col-sm-1" ng-repeat="color in colors" ng-class="note.color == color ? 'note-attr-selected' : ''">
-        <a href="" ng-click="addColor(color)" class="white-button" ng-show="color == '#ffffff'">
-          <i class="fa fa-square-o fa-2" style="font-size: 33px; color: #000"></i>
-        </a>
-        <a href="" ng-click="addColor(color)" ng-hide="color == '#ffffff'">
-          <i class="fa fa-square fa-2" style="font-size: 33px; color: {{color}}"></i>
-        </a>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-12">
-      <label>Size</label>
-    </div>
-    <div class="col-sm-12">
-      <div class="col-sm-3" ng-class="note.size == 1 ? 'note-attr-selected' : ''">
-        <a href="" class="white-button" ng-click="addSize(1)">
-          <i class="fa fa-th" style="font-size: 30px"></i>
-          <span style="vertical-align: super">Small</span>
-        </a>
-      </div>
-      <div class="col-sm-3" ng-class="note.size == 2 ? 'note-attr-selected' : ''">
-        <a href="" class="white-button" ng-click="addSize(2)">
-          <i class="fa fa-th-large" style="font-size: 30px"></i>
-          <span style="vertical-align: super">Medium</span>
-        </a>
-      </div>
-      <div class="col-sm-3" ng-class="note.size == 3 ? 'note-attr-selected' : ''">
-        <a href="" class="white-button" ng-click="addSize(3)">
-          <i class="fa fa-square" style="font-size: 30px"></i>
-          <span style="vertical-align: super">Large</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-offset-11">
-      <button class="btn btn-primary" ng-click="save()">Save</button>
-    </div>
-  </div>
-</form>
-
 <div class="row">
   <div class="note" ng-class="'col-md-'+ (note.size*4)" ng-repeat="note in notes" style="background-color: {{note.color}}">
-    {{note.description}}
+    <div ng-bind-html="markdown(note.description)" class="note-content"></div>
+    <div class="note-footer col-sm-12">
+      <a href="" ng-click="edit(note)" data-toggle="modal" data-target="#note-form"><i class="fa fa-pencil"></i></a>
+      &nbsp;&nbsp;
+      <a href="" ng-click="remove(note)"><i class="fa fa-trash"></i></a>
+    </div>
   </div>
+
+  <div class="modal fade" id="note-form" tabindex="1" role="dialog" aria-labelledby="note-form">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Cloase"><span aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="note-form-label">Note it</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea class="form-control" id="description" ng-model="note.description" rows="6"></textarea>
+              <p style="text-align: right; font-size: 10px">
+                You can use <a href="https://help.github.com/articles/markdown-basics/" target="_blank">markdown</a> to format your text.
+              </p>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <label>Color</label>
+              </div>
+
+              <div class="col-sm-12">
+
+                <div class="col-sm-1" ng-repeat="color in colors" ng-class="note.color == color ? 'note-attr-selected' : ''">
+                  <a href="" ng-click="addColor(color)" class="white-button" ng-show="color == '#ffffff'">
+                    <i class="fa fa-square-o fa-2" style="font-size: 33px; color: #000"></i>
+                  </a>
+                  <a href="" ng-click="addColor(color)" ng-hide="color == '#ffffff'">
+                    <i class="fa fa-square fa-2" style="font-size: 33px; color: {{color}}"></i>
+                  </a>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <label>Size</label>
+              </div>
+              <div class="col-sm-12">
+                <div class="col-sm-3" ng-class="note.size == 1 ? 'note-attr-selected' : ''">
+                  <a href="" class="white-button" ng-click="addSize(1)">
+                    <i class="fa fa-th" style="font-size: 30px"></i>
+                    <span style="vertical-align: super">Small</span>
+                  </a>
+                </div>
+                <div class="col-sm-3" ng-class="note.size == 2 ? 'note-attr-selected' : ''">
+                  <a href="" class="white-button" ng-click="addSize(2)">
+                    <i class="fa fa-th-large" style="font-size: 30px"></i>
+                    <span style="vertical-align: super">Medium</span>
+                  </a>
+                </div>
+                <div class="col-sm-3" ng-class="note.size == 3 ? 'note-attr-selected' : ''">
+                  <a href="" class="white-button" ng-click="addSize(3)">
+                    <i class="fa fa-square" style="font-size: 30px"></i>
+                    <span style="vertical-align: super">Large</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" ng-click="save()" data-dismiss="modal">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 </div>
+
+<a class="add-button" href="javascript:" ng-click="new()" data-toggle="modal" data-target="#note-form">
+  <img src="/images/bt_speed_dial_1x.png">
+</a>

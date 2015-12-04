@@ -22,14 +22,36 @@ angular
     'firebase'
   ])
   .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise("/home");
+    $urlRouterProvider.otherwise("/login");
 
     $stateProvider
       .state('home', {
         url: "/home",
         templateUrl: "views/main.html",
-        controller: 'NotesCtrl'
-      });
+        controller: 'NotesCtrl',
+        resolve: {
+          "user": ['$state', 'Auth', function($state, Auth){
+            return Auth.auth.$requireAuth()
+              .then(function(auth){
+                  return auth;
+              }).catch(function(){
+                  $state.go('login');
+              });
+          }]
+        }
+      })
+
+      .state('login', {
+        url: '/login',
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      })
+
+      .state('signup', {
+        url: '/signup',
+        templateUrl: 'views/signup.html',
+        controller: 'SignupCtrl'
+      })
 
   }])
 
