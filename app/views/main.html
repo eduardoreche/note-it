@@ -4,7 +4,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" ng-cloak="">
   <div class="note" ng-class="'col-md-'+ (note.size*4)" ng-repeat="note in notes | filter:search" style="background-color: {{note.color}}">
     <div ng-bind-html="markdown(note.description)" class="note-content"></div>
     <div class="note-footer col-sm-12">

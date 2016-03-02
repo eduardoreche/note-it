@@ -19,7 +19,9 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.router',
-    'firebase'
+    'firebase',
+    'ngFileUpload',
+    'ngImgCrop'
   ])
   .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/home");
@@ -73,6 +75,30 @@ angular
         }
       })
 
+      .state('upload', {
+        url: '/upload',
+        views: {
+          '@': {
+            templateUrl: 'views/upload.html',
+            controller: 'UploadCtrl'
+          },
+          'userOptions': {
+            templateUrl: 'views/userOptions.html',
+            controller: 'ProfileCtrl'
+          }
+        },
+        resolve: {
+          'user': ['$state', 'Auth', function($state, Auth) {
+            return Auth.auth.$requireAuth()
+              .then(function(auth){
+                  return auth;
+              }).catch(function(){
+                  $state.go('login');
+              });
+          }]
+        }
+      })
+
       .state('login', {
         url: '/login',
         templateUrl: 'views/login.html',
@@ -87,4 +113,4 @@ angular
 
   }])
 
-  .constant('FIREBASE_URL', 'https://note-it.firebaseio.com');
+  .constant('FIREBASE_URL', 'https:/<YOUR-FIREBASE>');

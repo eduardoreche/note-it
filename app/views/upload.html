@@ -1,0 +1,37 @@
+<div class="row">
+  <div class='col-md-6'>
+    <form name="form">
+      <h2>Single image upload</h2>
+
+      <div class="btn btn-primary" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+        ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+        ngf-resize="{width: 100, height: 100}">Select</div>
+
+      <button type="submit" ng-click="upload()" class="btn btn-primary">Upload</button>
+    </form>
+
+    <div class="well">
+      <img ngf-src="file">
+    </div>
+     <br><br>
+
+    <h2>Image Crop</h2>
+    <form>
+      <div>Select an image file: <input type="file" id="fileInput" /></div>
+      <div class="cropArea">
+        <img-crop image="myImage" result-image="myCroppedImage"></img-crop>
+      </div>
+      <h4>Cropped Image:</h4>
+      <div><img ng-src="{{myCroppedImage}}" /></div>
+      <button type="submit" ng-click="cropUpload()" class="btn btn-primary">Upload</button>
+    </form>
+    <br><br>
+
+  <div class="col-md-6">
+    <ul>
+      <li ng-repeat="file in images">
+        <img ng-src="{{file.image}}"></img>
+      </li>
+    </ul>
+  </div>
+</div>
